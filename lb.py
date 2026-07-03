@@ -3001,9 +3001,15 @@ def print_job_verbose(job: dict, index: int, total: int):
 
 def _build_guest_api_url(keyword: str, start: int) -> str:
     kw = quote_plus(keyword)
+    
     return (
         "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
-        f"?location=Lebanon&f_TPR=r604800&keywords={kw}&start={start}"
+        "?location=Lebanon"                     # Target country
+        "&f_TPR=r604800"                        # Jobs posted in last week
+        f"&keywords={kw}"
+        f"&start={start}"
+        "&f_WT=2,3"                             # On-site + Hybrid (helps filter)
+        "&f_E=1,2,3,4"                          # Experience levels
     )
 
 def _collect_job_urls_from_cards(html: str, seen: set) -> list:
